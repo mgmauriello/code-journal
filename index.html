@@ -18,6 +18,40 @@
   <header>
   </header>
   <main>
+    <div data-view="entry-form">
+      <header class="header">
+        <h4 class="column-full">Code Journal</h4>
+      </header>
+
+      <div class="container">
+        <div class="column-full">
+          <h1>New Entry</h1>
+        </div>
+        <form action="example.php" method="get" name="name1" id="entry-form">
+
+          <div class="row">
+            <div class="column-half">
+              <img src="images/placeholder-image-square.jpg" class="column-full" alt="placed-image">
+            </div>
+
+            <div class="column-half">
+              <label for="title">Title</label>
+              <div>
+                <input class="column-full" type="text" name="title" id="title" required>
+              </div>
+
+              <div>
+                <label for="photo">Photo URL</label>
+                <div>
+                  <input class="column-full" type="url" name="photoUrl" id="photoUrl" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
