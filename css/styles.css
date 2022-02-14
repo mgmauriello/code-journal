@@ -63,6 +63,8 @@ textarea {
   background-color: #389393;
 }
 
-textarea:focus {
-  border: 1px solid #389393;
+textarea:focus,
+input:focus {
+  outline: none;
+  border: 2px solid #389393;
 }
