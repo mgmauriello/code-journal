@@ -1,5 +1,6 @@
 body {
   background-color: #f8f6f6;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 div {
@@ -28,20 +29,23 @@ img {
 
 label {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 input {
-  width: 400px;
   height: 40px;
   margin-top: 6px;
   border: 1px solid #d3d3d3;
   border-radius: 5px;
+  font-family: Cabin, sans-serif;
+  font-size: 17px;
 }
 
 textarea {
   border: 1px solid #d3d3d3;
   border-radius: 5px;
+  font-family: Cabin, sans-serif;
+  font-size: 16px;
 }
 
 .save {
@@ -57,4 +61,8 @@ textarea {
   text-align: center;
   border-radius: 5px;
   background-color: #389393;
+}
+
+textarea:focus {
+  border: 1px solid #389393;
 }

@@ -22,5 +22,4 @@ $entryForm.addEventListener('submit', function (event) {
 
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
   $entryForm.reset();
-
 });
