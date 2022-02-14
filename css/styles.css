@@ -32,8 +32,8 @@ label {
 }
 
 input {
-  height: 35px;
   width: 400px;
+  height: 40px;
   margin-top: 6px;
   border: 1px solid #d3d3d3;
   border-radius: 5px;
@@ -42,4 +42,19 @@ input {
 textarea {
   border: 1px solid #d3d3d3;
   border-radius: 5px;
+}
+
+.save {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-button {
+  width: 72px;
+  height: 32px;
+  border: none;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #389393;
 }

@@ -20,7 +20,9 @@
   <main>
     <div data-view="entry-form">
       <header class="header">
-        <h4 class="column-full">Code Journal</h4>
+        <div class="container">
+          <h4 class="column-full">Code Journal</h4>
+        </div>
       </header>
 
       <div class="container">
@@ -49,6 +51,21 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="column-full">
+              <label for="notes">Notes</label>
+              <div>
+                <textarea class="column-full" name="notes" id="notes" rows="10" required></textarea>
+              </div>
+
+              <div class="row">
+                <div class="save column-full">
+                  <button class="save-button">SAVE</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
