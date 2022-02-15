@@ -10,14 +10,16 @@ $input.addEventListener('input', function (event) {
 
 $entryForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  var entryId = {};
+  var newEntry = {};
 
-  entryId.photoUrl = $entryForm.elements.photoUrl.value;
-  entryId.title = $entryForm.elements.title.value;
-  entryId.notes = $entryForm.elements.notes.value;
+  newEntry.photoUrl = $entryForm.elements.photoUrl.value;
+  newEntry.title = $entryForm.elements.title.value;
+  newEntry.notes = $entryForm.elements.notes.value;
 
-  entryId.entryId = data.nextEntryID;
+  newEntry.newEntry = data.nextEntryID;
   data.nextEntryId++;
+
+  data.entries.unshift(newEntry);
 
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
   $entryForm.reset();
