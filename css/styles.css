@@ -3,6 +3,10 @@ body {
   font-family: "Roboto Condensed", sans-serif;
 }
 
+ul li {
+  list-style-type: none;
+}
+
 div {
   margin-bottom: 20px;
 }
@@ -53,7 +57,8 @@ textarea {
   justify-content: flex-end;
 }
 
-.save-button {
+.save-button,
+.new-button {
   width: 72px;
   height: 32px;
   border: none;
@@ -63,8 +68,27 @@ textarea {
   background-color: #389393;
 }
 
+.entries-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.no-entries-text {
+  text-align: center;
+}
+
+.entries-list {
+  margin: 0;
+  padding: 0;
+}
+
 textarea:focus,
 input:focus {
   outline: none;
   border: 2px solid #389393;
+}
+
+button:hover {
+  background-color: #55caca;
 }
