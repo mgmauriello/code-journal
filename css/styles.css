@@ -93,8 +93,18 @@ textarea {
   padding: 0;
 }
 
+.entries-title {
+  position: relative;
+}
+
+i {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #389393;
+}
+
 .entries-page p {
-  text-align: center;
   font-weight: 400;
 }
 

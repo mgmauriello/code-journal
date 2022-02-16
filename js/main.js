@@ -27,7 +27,7 @@ $entryForm.addEventListener('submit', function (event) {
   data.nextEntryId++;
 
   data.entries.unshift(newEntry);
-  var journalEntry = viewEntries(newEntry);
+  var journalEntry = renderEntries(newEntry);
   $entrylist.prepend(journalEntry);
 
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
@@ -42,7 +42,7 @@ $entryForm.addEventListener('submit', function (event) {
 
 // users can view their entry #2
 
-function viewEntries(entry) {
+function renderEntries(entry) {
   var listofEntries = document.createElement('li');
 
   var row = document.createElement('div');
@@ -59,12 +59,18 @@ function viewEntries(entry) {
   columnHalf.appendChild(img);
 
   var entriesText = document.createElement('div');
-  entriesText.className = 'column half entries-text';
+  entriesText.className = 'column-half entries-text';
   row.appendChild(entriesText);
 
   var titles = document.createElement('h2');
+  titles.className = 'entries-title';
   titles.textContent = entry.title;
   entriesText.appendChild(titles);
+
+  var editIcon = document.createElement('i');
+  editIcon.className = 'fas fa-pencil-alt';
+  editIcon.setAttribute('data-entry-id', entry.entryId);
+  titles.appendChild(editIcon);
 
   var entriesNotes = document.createElement('p');
   entriesNotes.textContent = entry.notes;
@@ -75,7 +81,7 @@ function viewEntries(entry) {
 
 document.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
-    var entriesData = viewEntries(data.entries[i]);
+    var entriesData = renderEntries(data.entries[i]);
     $entrylist.appendChild(entriesData);
   }
 
@@ -86,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     $entriesViewContainer.className = 'hidden';
   }
 
-  if (data.entries.length === '') {
+  if (data.entries.length === 0) {
     $noEntry.className = 'no-entries-text';
   } else {
     $noEntry.className = 'hidden';
