@@ -97,11 +97,16 @@ textarea {
   position: relative;
 }
 
-i {
+.edit-icon {
   position: absolute;
   right: 0;
   top: 0;
   color: #389393;
+}
+
+i:hover {
+  cursor: pointer;
+  color: #55caca;
 }
 
 .entries-page p {

@@ -18,6 +18,21 @@ $input.addEventListener('input', function (event) {
   $img.setAttribute('src', event.target.value);
 });
 
+function changePageView(views) {
+  if (data.view === 'entries') {
+    newEntryContainer.className = 'hidden';
+  } else if (data.view === 'entry-form') {
+    $noEntry.className = 'hidden';
+    $entriesViewContainer.className = 'hidden';
+  }
+
+  if (data.entries.length === 0) {
+    $noEntry.className = 'no-entries-text';
+  } else {
+    $noEntry.className = 'hidden';
+  }
+}
+
 $entryForm.addEventListener('submit', function (event) {
   event.preventDefault();
   var newEntry = {};
@@ -36,11 +51,7 @@ $entryForm.addEventListener('submit', function (event) {
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
 
   $entryForm.reset();
-
-  newEntryContainer.className = 'hidden';
-  $noEntry.className = 'hidden';
-  $entriesViewContainer.className = '';
-  data.view = 'entries';
+  changePageView('entries');
 });
 
 // users can view their entry #2
@@ -71,7 +82,7 @@ function renderEntries(entry) {
   entriesText.appendChild(titles);
 
   var editIcon = document.createElement('i');
-  editIcon.className = 'fas fa-pencil-alt';
+  editIcon.setAttribute('class', 'fas fa-pencil-alt edit-icon');
   editIcon.setAttribute('data-entry-id', entry.entryId);
   titles.appendChild(editIcon);
 
@@ -86,19 +97,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
     var entriesData = renderEntries(data.entries[i]);
     $entrylist.appendChild(entriesData);
-  }
-
-  if (data.view === 'entries') {
-    newEntryContainer.className = 'hidden';
-  } else if (data.view === 'entry-form') {
-    $noEntry.className = 'hidden';
-    $entriesViewContainer.className = 'hidden';
-  }
-
-  if (data.entries.length === 0) {
-    $noEntry.className = 'no-entries-text';
-  } else {
-    $noEntry.className = 'hidden';
   }
 });
 
