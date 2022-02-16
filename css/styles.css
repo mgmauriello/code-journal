@@ -117,3 +117,12 @@ button:active {
   background-color: #389393;
   box-shadow: inset 2px 1px gray;
 }
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  text-decoration: none;
+}
