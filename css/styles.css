@@ -139,6 +139,14 @@ button:active {
   font-family: "Roboto Condensed", sans-serif;
   text-decoration: underline;
   cursor: pointer;
+  position: relative;
+  bottom: 45px;
+  background-color: #f8f6f6;
+  border: none;
+}
+
+.visibility {
+  visibility: visible;
 }
 
 .modal-popup {
@@ -162,31 +170,33 @@ button:active {
   text-align: center;
   padding: 60px 30px;
   position: absolute;
-  border-radius: 2px;
+  border-radius: 10px;
 }
 
 .confirm-btn {
-  font-size: 20px;
+  font-size: 18px;
   color: white;
   background-color: red;
-  padding: 11px 25px;
-  border-radius: 2px;
+  padding: 10px 15px;
+  border-radius: 7px;
   border: red;
   box-shadow: 2px 0 5px grey;
   position: relative;
-  top: 18px;
+  top: 20px;
+  left: 53px;
 }
 
 .cancel-btn {
-  font-size: 20px;
+  font-size: 18px;
   color: black;
   background-color: grey;
-  padding: 11px 25px;
-  border-radius: 2px;
+  padding: 10px 18px;
+  border-radius: 7px;
   border: grey;
   box-shadow: 2px 0 5px grey;
   position: relative;
-  top: 10px;
+  top: 20px;
+  right: 53px;
 }
 
 .show-modal {
@@ -195,7 +205,15 @@ button:active {
   transform: scale(1);
 }
 
-.delete-btn:hover,
+.modal-text-content {
+  font-size: 18px;
+}
+
+.delete-btn:hover {
+  color: #f14a4a;
+  background-color: #f8f6f6;
+}
+
 .confirm-btn:hover {
   background-color: #f14a4a;
 }

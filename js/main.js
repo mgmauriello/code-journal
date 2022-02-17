@@ -13,6 +13,8 @@ var $ul = document.querySelector('ul');
 var $newButton = document.querySelector('.new-button');
 var $saveButton = document.querySelector('.save-button');
 var entriesAnchor = document.querySelector('.entries');
+var $modalPopUp = document.querySelector('.modal-popup');
+var $deleteButton = document.querySelector('.delete-btn');
 
 $photoUrl.addEventListener('input', function (event) {
   $img.setAttribute('src', event.target.value);
@@ -133,7 +135,7 @@ $entryView.addEventListener('click', function (event) {
   }
   var editEntryId = parseInt(event.target.closest('li').getAttribute('data-entry-id'));
   data.editing = editEntryId;
-
+  $deleteButton.setAttribute('class', 'delete-btn');
   for (var i = 0; i < data.entries.length; i++) {
     if (editEntryId === data.entries[i].entryId) {
       $h1.textContent = 'Edit Entry';
@@ -141,6 +143,7 @@ $entryView.addEventListener('click', function (event) {
       $photoUrl.value = data.entries[i].photoUrl;
       $notes.value = data.entries[i].notes;
       $img.setAttribute('src', $photoUrl.value);
+
     }
     swapViews('entry-form');
   }
@@ -160,13 +163,14 @@ $newButton.addEventListener('click', function (event) {
 entriesAnchor.addEventListener('click', function (event) {
   swapViews('entries');
 });
+
 // can delete entry
-var $modalPopUp = document.querySelector('.modal-popup');
-var $deleteButton = document.querySelector('.delete-btn');
+
 $deleteButton.addEventListener('click', function (event) {
-  if (event.target.matches('.delete-btn')) {
-    $modalPopUp.className = 'modal-popup';
+  if (event.target.matches('button')) {
+    $modalPopUp.className = 'modal-popup show-modal';
   } else {
     $modalPopUp.className = 'modal-popup hidden';
   }
+  swapViews('entry-form');
 });
