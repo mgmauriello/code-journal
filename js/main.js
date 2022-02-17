@@ -160,3 +160,13 @@ $newButton.addEventListener('click', function (event) {
 entriesAnchor.addEventListener('click', function (event) {
   swapViews('entries');
 });
+// can delete entry
+var $modalPopUp = document.querySelector('.modal-popup');
+var $deleteButton = document.querySelector('.delete-btn');
+$deleteButton.addEventListener('click', function (event) {
+  if (event.target.matches('.delete-btn')) {
+    $modalPopUp.className = 'modal-popup';
+  } else {
+    $modalPopUp.className = 'modal-popup hidden';
+  }
+});

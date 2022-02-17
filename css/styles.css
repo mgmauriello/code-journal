@@ -133,3 +133,73 @@ button:active {
   background-color: #389393;
   box-shadow: inset 2px 1px gray;
 }
+
+.delete-btn {
+  color: red;
+  font-family: "Roboto Condensed", sans-serif;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.modal-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(0 0 0 / 50%);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+}
+
+.modal-content {
+  transform: translate(-50%, -50%);
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  width: 27rem;
+  text-align: center;
+  padding: 60px 30px;
+  position: absolute;
+  border-radius: 2px;
+}
+
+.confirm-btn {
+  font-size: 20px;
+  color: white;
+  background-color: red;
+  padding: 11px 25px;
+  border-radius: 2px;
+  border: red;
+  box-shadow: 2px 0 5px grey;
+  position: relative;
+  top: 18px;
+}
+
+.cancel-btn {
+  font-size: 20px;
+  color: black;
+  background-color: grey;
+  padding: 11px 25px;
+  border-radius: 2px;
+  border: grey;
+  box-shadow: 2px 0 5px grey;
+  position: relative;
+  top: 10px;
+}
+
+.show-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.delete-btn:hover,
+.confirm-btn:hover {
+  background-color: #f14a4a;
+}
+
+.cancel-btn:hover {
+  background-color: #7c7878;
+}
