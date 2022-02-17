@@ -15,6 +15,8 @@ var $saveButton = document.querySelector('.save-button');
 var entriesAnchor = document.querySelector('.entries');
 var $modalPopUp = document.querySelector('.modal-popup');
 var $deleteButton = document.querySelector('.delete-btn');
+// var $confirmButton = document.querySelector('.confirm-btn');
+var $cancelButton = document.querySelector('.cancel-btn');
 
 $photoUrl.addEventListener('input', function (event) {
   $img.setAttribute('src', event.target.value);
@@ -174,3 +176,24 @@ $deleteButton.addEventListener('click', function (event) {
   }
   swapViews('entry-form');
 });
+
+$cancelButton.addEventListener('click', function (event) {
+  if (event.target.matches('.cancel-btn')) {
+    $modalPopUp.className = 'modal-popup hidden';
+  } else {
+    $modalPopUp.className = 'modal-popup';
+
+  }
+});
+
+/* $confirmButton.addEventListener('click', function (event) {
+  if (event.target.matches('.confirm-btn')) {
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === data.editing) {
+        data.entries.splice(i, 1);
+        $modalPopUp.className = 'modal-popup hidden';
+      }
+    }
+  }
+});
+*/
