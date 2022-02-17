@@ -7,26 +7,27 @@
   <title>Code Journal</title>
   <link rel="icon" href="images/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Cabin|Roboto:400,700|Roboto+Condensed:400,700" rel="stylesheet">
-  <link rel="stylesheet" crossorigin="anonymous"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==">
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-  <main class="new-entry-container ">
-    <div data-view="entry-form">
-      <header class="header">
-        <div class="container new-entry-container">
-          <h4 class="column-full">Code Journal<span><a href="#entires-anchor" class="entries"> | Entries</a></span></h4>
-        </div>
-      </header>
-
+  <header class="header">
+    <div class="container">
+      <a href="#" class="column-full">Code Journal</a>
+      <a href="#entries-anchor" class="entries" data-view="entries">Entries</a>
+    </div>
+  </header>
+  <main>
+    <div class="view hidden" data-view="entry-form">
       <div class="container">
         <div class="column-full">
-          <h1>New Entry</h1>
+          <h1 id="new-entry-edit">New Entry</h1>
         </div>
         <form action="example.php" method="get" name="name1" id="entry-form">
 
@@ -59,7 +60,7 @@
 
               <div class="row">
                 <div class="save column-full">
-                  <button class="save-button">SAVE</button>
+                  <button data-view="entry-form" type="submit" class="save-button">SAVE</button>
                 </div>
 
               </div>
@@ -70,38 +71,31 @@
     </div>
   </main>
 
-  <div data-view="entries">
-    <div class="entries-view-container ">
-      <div class="header-entries-page">
-        <div class="container">
-          <h4 class="column-full">Code Journal<span><a href="#entires-anchor" class="entries"> | Entries</a></span></h4>
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="row">
-          <div class="column-full entries-row">
-            <h1>Entries</h1>
-            <button class="new-button">
-              <a data-view="entry-form">NEW</a>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="row entries-page">
-          <div class="column-full">
-            <p class="no-entries-text">No entries have been recorded.</p>
-          </div>
-          <ul class="entries-lists">
-          </ul>
+  <div class="view" id="entry-view" data-view="entries">
+    <div class="container">
+      <div class="row">
+        <div class="column-full entries-row">
+          <h1>Entries</h1>
+          <button class="new-button">
+            <a data-view="entry-form">NEW</a>
+          </button>
         </div>
       </div>
     </div>
 
-    <script src="js/data.js"></script>
-    <script src="js/main.js"></script>
+    <div class="container">
+      <div class="row entries-page">
+        <div data-view="no-entries" class="column-full">
+          <p class="no-entries-text">No entries have been recorded.</p>
+        </div>
+        <ul id="entries-lists" class="list-group">
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>

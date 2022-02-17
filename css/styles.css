@@ -11,17 +11,23 @@ div {
   margin-bottom: 20px;
 }
 
-.header {
+header {
   height: 35px;
   background-color: #389393;
-}
-
-.header h4,
-.header-entries-page h4 {
   margin: 0;
   line-height: 35px;
   font-weight: 300;
   color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  padding-left: 2px;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 h1 {
@@ -73,11 +79,6 @@ textarea {
   display: none;
 }
 
-.header-entries-page {
-  height: 35px;
-  background-color: #389393;
-}
-
 .entries-row {
   display: flex;
   justify-content: space-between;
@@ -93,8 +94,23 @@ textarea {
   padding: 0;
 }
 
+.entries-title {
+  position: relative;
+}
+
+.pen {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #389393;
+}
+
+i:hover {
+  cursor: pointer;
+  color: #55caca;
+}
+
 .entries-page p {
-  text-align: center;
   font-weight: 400;
 }
 
@@ -116,13 +132,4 @@ button:hover {
 button:active {
   background-color: #389393;
   box-shadow: inset 2px 1px gray;
-}
-
-a {
-  text-decoration: none;
-  color: white;
-}
-
-a:hover {
-  text-decoration: none;
 }
