@@ -8,56 +8,54 @@ var $newButton = document.querySelector('.new-button');
 var $saveButton = document.querySelector('.save-button');
 var $noEntry = document.querySelector('.no-entries-text');
 var entriesAnchor = document.querySelector('.entries');
-var newEntryContainer = document.querySelector('main');
-var $entriesViewContainer = document.querySelector('.entries-view-container');
-
+// var newEntryContainer = document.querySelector('main');
+// var $entriesViewContainer = document.querySelector('.entries-view-container');
+var $view = document.querySelectorAll('.view');
+var $entries = document.querySelector('.entries-list');
+var $h1 = document.querySelector('h1');
+var $title = document.querySelector('#title');
+var $notes = document.querySelector('#notes');
 var $ul = document.querySelector('ul');
-var $newEntryEdit = document.querySelector('#new-entry-edit');
 
 $input.addEventListener('input', function (event) {
   $img.setAttribute('src', event.target.value);
 });
 
-function changePageView(views) {
-  if (data.view === 'entries') {
-    newEntryContainer.className = 'hidden';
-  } else if (data.view === 'entry-form') {
-    $noEntry.className = 'hidden';
-    $entriesViewContainer.className = 'hidden';
-  }
-
-  if (data.entries.length === 0) {
-    $noEntry.className = 'no-entries-text';
-  } else {
-    $noEntry.className = 'hidden';
-  }
-}
-
 $entryForm.addEventListener('submit', function (event) {
   event.preventDefault();
+
+  var $entry = document.querySelectorAll('.entry');
   var newEntry = {};
 
   newEntry.photoUrl = $entryForm.elements.photoUrl.value;
   newEntry.title = $entryForm.elements.title.value;
   newEntry.notes = $entryForm.elements.notes.value;
 
-  newEntry.newEntry = data.nextEntryId;
-  data.nextEntryId++;
-
-  data.entries.unshift(newEntry);
-  var journalEntry = renderEntries(newEntry);
-  $entrylist.prepend(journalEntry);
-
+  if ($h1.textContent === 'Edit Entry') {
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.editing === data.entries[i]) {
+        data.entries[i].title = $entryForm.elements.title.value;
+        data.entries[i].photoUrl = $entryForm.elements.photoUrl.value;
+        data.entries[i].notes = $entryForm.elements.notes.value;
+        $entry[i].replaceWith(renderEntries(data.entries[i]));
+      }
+    }
+  } else if ($h1.textContent === 'New Entry') {
+    data.entries.unshift(newEntry);
+    $entries.prepend(renderEntries(data.entries[0]));
+    data.nextEntryId++;
+  }
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
 
   $entryForm.reset();
-  changePageView('entries');
+
 });
 
 // users can view their entry #2
 
 function renderEntries(entry) {
   var listofEntries = document.createElement('li');
+  listofEntries.setAttribute('data-entry-id', entry.entryId);
 
   var row = document.createElement('div');
   row.className = 'row';
@@ -82,8 +80,9 @@ function renderEntries(entry) {
   entriesText.appendChild(titles);
 
   var editIcon = document.createElement('i');
-  editIcon.setAttribute('class', 'fas fa-pencil-alt edit-icon');
+  editIcon.setAttribute('class', 'fas fa-pen pen');
   editIcon.setAttribute('data-entry-id', entry.entryId);
+  editIcon.setAttribute('data-view', 'entry-form');
   titles.appendChild(editIcon);
 
   var entriesNotes = document.createElement('p');
@@ -100,42 +99,54 @@ document.addEventListener('DOMContentLoaded', function (event) {
   }
 });
 
+function swapViews(event) {
+  for (var i = 0; i < $view.length; i++) {
+    if ($view[i].dataset.view === event) {
+      $view[i].className = 'view';
+      var currentView = $view[i].dataset.view;
+      data.view = currentView;
+    } else {
+      $view[i].className = 'view hidden';
+    }
+  }
+  if (data.view === 'entry-form') {
+    $noEntry.className = 'hidden';
+  } else if (data.entries.length === 0) {
+    $noEntry.className = '';
+  }
+}
+
 $saveButton.addEventListener('click', function (event) {
-  $entriesViewContainer.className = '';
-  newEntryContainer.className = 'hidden';
-  data.view = 'entries';
+  swapViews('entries');
 });
 
 $newButton.addEventListener('click', function (event) {
-  $entriesViewContainer.className = 'hidden';
-  newEntryContainer.className = '';
-  data.view = 'entry-form';
+  swapViews('entry-form');
 });
 
 entriesAnchor.addEventListener('click', function (event) {
-  $entriesViewContainer.className = '';
-  newEntryContainer.className = 'hidden';
-  data.view = 'entries';
+  swapViews('entries');
 });
 
-// edit an entry #3
 $ul.addEventListener('click', function (event) {
-  $newEntryEdit.textContent = 'Edit Entry';
-
-  if (event.target.nodeName !== 'I') {
+  if (!(event.target.className === 'fas fa-pen pen')) {
     return;
   }
 
-  $newEntryEdit.textContent = 'Edit Entry';
-  var $entryListTarget = event.target.getAttribute('data-entry-id');
+  swapViews('entry-form');
+
+  var entryListElement = event.target.closest('li');
+  var dataEntryIdValue = entryListElement.getAttribute('data-entry-id');
   for (var i = 0; i < data.entries.length; i++) {
-    if (Number($entryListTarget) === data.entries[i].entryId) {
+    if (data.entries[i].entryId === dataEntryIdValue) {
       data.editing = data.entries[i];
     }
   }
 
-  $entryForm.elements.title.value = data.editing.title;
-  $entryForm.elements.photoUrl.value = data.editing.photoUrl;
-  $entryForm.elements.notes.value = data.editing.notes;
-  $img.setAttribute('src', $entryForm.elements.photoUrl.value);
+  $h1.textContent = 'Edit Entry';
+  $img.setAttribute('src', data.editing.photoUrl);
+  $title.value = data.editing.title;
+  $input.value = data.editing.url;
+  $notes.value = data.editing.notes;
+
 });

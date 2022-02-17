@@ -11,17 +11,22 @@ div {
   margin-bottom: 20px;
 }
 
-.header {
+header {
   height: 35px;
   background-color: #389393;
-}
-
-.header h4,
-.header-entries-page h4 {
   margin: 0;
   line-height: 35px;
   font-weight: 300;
   color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 h1 {
@@ -97,7 +102,7 @@ textarea {
   position: relative;
 }
 
-.edit-icon {
+.pen {
   position: absolute;
   right: 0;
   top: 0;
@@ -131,13 +136,4 @@ button:hover {
 button:active {
   background-color: #389393;
   box-shadow: inset 2px 1px gray;
-}
-
-a {
-  text-decoration: none;
-  color: white;
-}
-
-a:hover {
-  text-decoration: none;
 }
