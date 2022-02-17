@@ -1,61 +1,69 @@
 /* global data */
 /* exported data */
-var $input = document.querySelector('#photoUrl');
+var $photoUrl = document.querySelector('#photoUrl');
 var $img = document.querySelector('img');
 var $entryForm = document.querySelector('#entry-form');
-var $entrylist = document.querySelector('.entries-lists');
-var $newButton = document.querySelector('.new-button');
-var $saveButton = document.querySelector('.save-button');
 var $noEntry = document.querySelector('.no-entries-text');
-var entriesAnchor = document.querySelector('.entries');
-// var newEntryContainer = document.querySelector('main');
-// var $entriesViewContainer = document.querySelector('.entries-view-container');
-var $view = document.querySelectorAll('.view');
-var $entries = document.querySelector('.entries-list');
 var $h1 = document.querySelector('h1');
+var $entryView = document.querySelector('#entry-view');
+var $view = document.querySelectorAll('.view');
 var $title = document.querySelector('#title');
 var $notes = document.querySelector('#notes');
 var $ul = document.querySelector('ul');
+var $newButton = document.querySelector('.new-button');
+var $saveButton = document.querySelector('.save-button');
+var entriesAnchor = document.querySelector('.entries');
 
-$input.addEventListener('input', function (event) {
+$photoUrl.addEventListener('input', function (event) {
   $img.setAttribute('src', event.target.value);
 });
 
+// submit event
 $entryForm.addEventListener('submit', function (event) {
   event.preventDefault();
 
-  var $entry = document.querySelectorAll('.entry');
-  var newEntry = {};
+  if (data.editing === null) {
+    var newEntry = {
+      photoUrl: $photoUrl.value,
+      title: $title.value,
+      notes: $notes.value,
+      entryId: data.nextEntryId
+    };
+    data.entries.unshift(newEntry);
+    data.nextEntryId++;
+    $ul.prepend(renderEntries(newEntry));
 
-  newEntry.photoUrl = $entryForm.elements.photoUrl.value;
-  newEntry.title = $entryForm.elements.title.value;
-  newEntry.notes = $entryForm.elements.notes.value;
-
-  if ($h1.textContent === 'Edit Entry') {
+  } else {
+    var editEntryValues = {
+      entryId: data.editing,
+      photoUrl: $photoUrl.value,
+      title: $title.value,
+      notes: $notes.value
+    };
     for (var i = 0; i < data.entries.length; i++) {
-      if (data.editing === data.entries[i]) {
-        data.entries[i].title = $entryForm.elements.title.value;
-        data.entries[i].photoUrl = $entryForm.elements.photoUrl.value;
-        data.entries[i].notes = $entryForm.elements.notes.value;
-        $entry[i].replaceWith(renderEntries(data.entries[i]));
+      if (editEntryValues.entryId === data.entries[i].entryId) {
+        data.entries[i] = editEntryValues;
       }
     }
-  } else if ($h1.textContent === 'New Entry') {
-    data.entries.unshift(newEntry);
-    $entries.prepend(renderEntries(data.entries[0]));
-    data.nextEntryId++;
+    var $listOfEntries = document.querySelectorAll('li');
+    for (var j = 0; j < $listOfEntries.length; j++) {
+      if (editEntryValues.entryId === parseInt($listOfEntries[j].getAttribute('data-entry-id'))) {
+        $listOfEntries[j].replaceWith(renderEntries(editEntryValues));
+      }
+    }
+    data.editing = null;
   }
+
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
-
   $entryForm.reset();
-
+  swapViews('entries');
 });
 
-// users can view their entry #2
-
+// users can view their entry
 function renderEntries(entry) {
   var listofEntries = document.createElement('li');
   listofEntries.setAttribute('data-entry-id', entry.entryId);
+  $ul.appendChild(listofEntries);
 
   var row = document.createElement('div');
   row.className = 'row';
@@ -81,7 +89,7 @@ function renderEntries(entry) {
 
   var editIcon = document.createElement('i');
   editIcon.setAttribute('class', 'fas fa-pen pen');
-  editIcon.setAttribute('data-entry-id', entry.entryId);
+  editIcon.setAttribute('data-entry-id', data.entryId);
   editIcon.setAttribute('data-view', 'entry-form');
   titles.appendChild(editIcon);
 
@@ -95,26 +103,48 @@ function renderEntries(entry) {
 document.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
     var entriesData = renderEntries(data.entries[i]);
-    $entrylist.appendChild(entriesData);
+    $ul.appendChild(entriesData);
   }
+  swapViews(data.view);
 });
 
-function swapViews(event) {
+// swapping views
+function swapViews(string) {
   for (var i = 0; i < $view.length; i++) {
-    if ($view[i].dataset.view === event) {
+    if ($view[i].getAttribute('data-view') === string) {
       $view[i].className = 'view';
-      var currentView = $view[i].dataset.view;
-      data.view = currentView;
+      data.view = $view[i].getAttribute('data-view');
     } else {
       $view[i].className = 'view hidden';
     }
   }
-  if (data.view === 'entry-form') {
+
+  if (data.entries.length === 0) {
+    $noEntry.className = 'no-entries-text';
+  } else {
     $noEntry.className = 'hidden';
-  } else if (data.entries.length === 0) {
-    $noEntry.className = '';
   }
 }
+
+// edit the entry
+$entryView.addEventListener('click', function (event) {
+  if (!(event.target.className === 'fas fa-pen pen')) {
+    return;
+  }
+  var editEntryId = parseInt(event.target.closest('li').getAttribute('data-entry-id'));
+  data.editing = editEntryId;
+
+  for (var i = 0; i < data.entries.length; i++) {
+    if (editEntryId === data.entries[i].entryId) {
+      $h1.textContent = 'Edit Entry';
+      $title.value = data.entries[i].title;
+      $photoUrl.value = data.entries[i].photoUrl;
+      $notes.value = data.entries[i].notes;
+      $img.setAttribute('src', $photoUrl.value);
+    }
+    swapViews('entry-form');
+  }
+});
 
 $saveButton.addEventListener('click', function (event) {
   swapViews('entries');
@@ -122,31 +152,11 @@ $saveButton.addEventListener('click', function (event) {
 
 $newButton.addEventListener('click', function (event) {
   swapViews('entry-form');
+  $h1.textContent = 'New Entry';
+  $entryForm.reset();
+  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
 });
 
 entriesAnchor.addEventListener('click', function (event) {
   swapViews('entries');
-});
-
-$ul.addEventListener('click', function (event) {
-  if (!(event.target.className === 'fas fa-pen pen')) {
-    return;
-  }
-
-  swapViews('entry-form');
-
-  var entryListElement = event.target.closest('li');
-  var dataEntryIdValue = entryListElement.getAttribute('data-entry-id');
-  for (var i = 0; i < data.entries.length; i++) {
-    if (data.entries[i].entryId === dataEntryIdValue) {
-      data.editing = data.entries[i];
-    }
-  }
-
-  $h1.textContent = 'Edit Entry';
-  $img.setAttribute('src', data.editing.photoUrl);
-  $title.value = data.editing.title;
-  $input.value = data.editing.url;
-  $notes.value = data.editing.notes;
-
 });
