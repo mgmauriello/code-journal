@@ -176,20 +176,21 @@ $cancelButton.addEventListener('click', function (event) {
   if (event.target.matches('.cancel-btn')) {
     $modalPopUp.className = 'modal-popup hidden';
   } else {
-    $modalPopUp.className = 'modal-popup';
+    $modalPopUp.className = 'modal-popup show-modal';
   }
 });
 
 $confirmButton.addEventListener('click', function (event) {
-  if (event.target.matches('.confirm-btn')) {
-    var deleteEntry = document.querySelector('[data-entry-id=' + '"' + data.editing.entryId + '"' + ']');
-    deleteEntry.remove();
-    for (var i = 0; i < data.entries.length; i++) {
-      if (data.entries[i].entryId === data.editing) {
-        data.entries.splice(i, 1);
-      }
-    }
-  }
+  event.preventDefault();
   swapViews('entries');
   $modalPopUp.className = 'modal-popup hidden';
+
+  var deleteEntry = document.querySelector('[data-entry-id=' + '"' + data.editing + '"' + ']');
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing) {
+      data.entries.splice(i, 1);
+    }
+  }
+  deleteEntry.remove(deleteEntry);
+  $entryForm.reset();
 });
