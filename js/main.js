@@ -1,33 +1,33 @@
 /* global data */
 /* exported data */
-var $photoUrl = document.querySelector('#photoUrl');
-var $img = document.querySelector('img');
-var $entryForm = document.querySelector('#entry-form');
-var $noEntry = document.querySelector('.no-entries-text');
-var $h1 = document.querySelector('h1');
-var $entryView = document.querySelector('#entry-view');
-var $view = document.querySelectorAll('.view');
-var $title = document.querySelector('#title');
-var $notes = document.querySelector('#notes');
-var $ul = document.querySelector('ul');
-var $newButton = document.querySelector('.new-button');
-var entriesAnchor = document.querySelector('.entries');
+const $photoUrl = document.querySelector('#photoUrl');
+const $img = document.querySelector('img');
+const $entryForm = document.querySelector('#entry-form');
+const $noEntry = document.querySelector('.no-entries-text');
+const $h1 = document.querySelector('h1');
+const $entryView = document.querySelector('#entry-view');
+const $view = document.querySelectorAll('.view');
+const $title = document.querySelector('#title');
+const $notes = document.querySelector('#notes');
+const $ul = document.querySelector('ul');
+const $newButton = document.querySelector('.new-button');
+const entriesAnchor = document.querySelector('.entries');
 
-var $modalPopUp = document.querySelector('.modal-popup');
-var $deleteButton = document.querySelector('button[type="button"]');
-var $confirmButton = document.querySelector('.confirm-btn');
-var $cancelButton = document.querySelector('.cancel-btn');
+const $modalPopUp = document.querySelector('.modal-popup');
+const $deleteButton = document.querySelector('button[type="button"]');
+const $confirmButton = document.querySelector('.confirm-btn');
+const $cancelButton = document.querySelector('.cancel-btn');
 
-$photoUrl.addEventListener('input', function (event) {
+$photoUrl.addEventListener('input', event => {
   $img.setAttribute('src', event.target.value);
 });
 
 // submit event
-$entryForm.addEventListener('submit', function (event) {
+$entryForm.addEventListener('submit', event => {
   event.preventDefault();
 
   if (data.editing === null) {
-    var newEntry = {
+    const newEntry = {
       photoUrl: $photoUrl.value,
       title: $title.value,
       notes: $notes.value,
@@ -38,19 +38,19 @@ $entryForm.addEventListener('submit', function (event) {
     $ul.prepend(renderEntries(newEntry));
 
   } else {
-    var editEntryValues = {
+    const editEntryValues = {
       entryId: data.editing,
       photoUrl: $photoUrl.value,
       title: $title.value,
       notes: $notes.value
     };
-    for (var i = 0; i < data.entries.length; i++) {
+    for (let i = 0; i < data.entries.length; i++) {
       if (editEntryValues.entryId === data.entries[i].entryId) {
         data.entries[i] = editEntryValues;
       }
     }
-    var $listOfEntries = document.querySelectorAll('li');
-    for (var j = 0; j < $listOfEntries.length; j++) {
+    const $listOfEntries = document.querySelectorAll('li');
+    for (let j = 0; j < $listOfEntries.length; j++) {
       if (editEntryValues.entryId === parseInt($listOfEntries[j].getAttribute('data-entry-id'))) {
         $listOfEntries[j].replaceWith(renderEntries(editEntryValues));
       }
@@ -65,48 +65,48 @@ $entryForm.addEventListener('submit', function (event) {
 
 // users can view their entry
 function renderEntries(entry) {
-  var listofEntries = document.createElement('li');
+  const listofEntries = document.createElement('li');
   listofEntries.setAttribute('data-entry-id', entry.entryId);
   $ul.appendChild(listofEntries);
 
-  var row = document.createElement('div');
+  const row = document.createElement('div');
   row.className = 'row';
   listofEntries.appendChild(row);
 
-  var columnHalf = document.createElement('div');
+  const columnHalf = document.createElement('div');
   columnHalf.className = 'column-half';
   row.appendChild(columnHalf);
 
-  var img = document.createElement('img');
+  const img = document.createElement('img');
   img.setAttribute('src', entry.photoUrl);
   img.className = 'img-entries';
   columnHalf.appendChild(img);
 
-  var entriesText = document.createElement('div');
+  const entriesText = document.createElement('div');
   entriesText.className = 'column-half entries-text';
   row.appendChild(entriesText);
 
-  var titles = document.createElement('h2');
+  const titles = document.createElement('h2');
   titles.className = 'entries-title';
   titles.textContent = entry.title;
   entriesText.appendChild(titles);
 
-  var editIcon = document.createElement('i');
+  const editIcon = document.createElement('i');
   editIcon.setAttribute('class', 'fas fa-pen pen');
   editIcon.setAttribute('data-entry-id', data.entryId);
   editIcon.setAttribute('data-view', 'entry-form');
   titles.appendChild(editIcon);
 
-  var entriesNotes = document.createElement('p');
+  const entriesNotes = document.createElement('p');
   entriesNotes.textContent = entry.notes;
   entriesText.appendChild(entriesNotes);
 
   return listofEntries;
 }
 
-document.addEventListener('DOMContentLoaded', function (event) {
-  for (var i = 0; i < data.entries.length; i++) {
-    var entriesData = renderEntries(data.entries[i]);
+document.addEventListener('DOMContentLoaded', event => {
+  for (let i = 0; i < data.entries.length; i++) {
+    const entriesData = renderEntries(data.entries[i]);
     $ul.appendChild(entriesData);
   }
   swapViews(data.view);
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 // swapping views
 function swapViews(string) {
-  for (var i = 0; i < $view.length; i++) {
+  for (let i = 0; i < $view.length; i++) {
     if ($view[i].getAttribute('data-view') === string) {
       $view[i].className = 'view';
       data.view = $view[i].getAttribute('data-view');
@@ -131,13 +131,13 @@ function swapViews(string) {
 }
 
 // edit the entry
-$entryView.addEventListener('click', function (event) {
+$entryView.addEventListener('click', event => {
   if (!(event.target.className === 'fas fa-pen pen')) {
     return;
   }
-  var editEntryId = parseInt(event.target.closest('li').getAttribute('data-entry-id'));
+  const editEntryId = parseInt(event.target.closest('li').getAttribute('data-entry-id'));
   data.editing = editEntryId;
-  for (var i = 0; i < data.entries.length; i++) {
+  for (let i = 0; i < data.entries.length; i++) {
     if (editEntryId === data.entries[i].entryId) {
       $h1.textContent = 'Edit Entry';
       $title.value = data.entries[i].title;
@@ -150,20 +150,20 @@ $entryView.addEventListener('click', function (event) {
   }
 });
 
-$newButton.addEventListener('click', function (event) {
+$newButton.addEventListener('click', event => {
   swapViews('entry-form');
   $h1.textContent = 'New Entry';
   $entryForm.reset();
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
 });
 
-entriesAnchor.addEventListener('click', function (event) {
+entriesAnchor.addEventListener('click', event => {
   swapViews('entries');
 });
 
 // can delete entry
 
-$deleteButton.addEventListener('click', function (event) {
+$deleteButton.addEventListener('click', event => {
   if (event.target.matches('button[type="button"]')) {
     $modalPopUp.className = 'modal-popup show-modal';
   } else {
@@ -172,7 +172,7 @@ $deleteButton.addEventListener('click', function (event) {
 
 });
 
-$cancelButton.addEventListener('click', function (event) {
+$cancelButton.addEventListener('click', event => {
   if (event.target.matches('.cancel-btn')) {
     $modalPopUp.className = 'modal-popup hidden';
   } else {
@@ -180,13 +180,13 @@ $cancelButton.addEventListener('click', function (event) {
   }
 });
 
-$confirmButton.addEventListener('click', function (event) {
+$confirmButton.addEventListener('click', event => {
   event.preventDefault();
   swapViews('entries');
   $modalPopUp.className = 'modal-popup hidden';
 
-  var deleteEntry = document.querySelector('[data-entry-id=' + '"' + data.editing + '"' + ']');
-  for (var i = 0; i < data.entries.length; i++) {
+  const deleteEntry = document.querySelector('[data-entry-id=' + '"' + data.editing + '"' + ']');
+  for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === data.editing) {
       data.entries.splice(i, 1);
     }
