@@ -1,5 +1,10 @@
+$primaryBlueColor: #389393;
+$whiteText: #fff;
+$deletebtnHvr: #f14a4a;
+$offWhite: #f8f6f6;
+
 body {
-  background-color: #f8f6f6;
+  background-color: $offWhite;
   font-family: "Roboto Condensed", sans-serif;
 }
 
@@ -11,23 +16,29 @@ div {
   margin-bottom: 20px;
 }
 
+header,
+a,
+.save-button,
+.new-button,
+.confirm-btn {
+  color: $whiteText;
+}
+
 header {
   height: 35px;
-  background-color: #389393;
+  background-color: $primaryBlueColor;
   margin: 0;
   line-height: 35px;
   font-weight: 300;
-  color: #fff;
 }
 
 a {
   text-decoration: none;
-  color: white;
   padding-left: 2px;
-}
 
-a:hover {
-  text-decoration: none;
+  &:hover {
+      text-decoration: none;
+  }
 }
 
 h1 {
@@ -50,6 +61,11 @@ input {
   border-radius: 5px;
   font-family: Cabin, sans-serif;
   font-size: 17px;
+
+  &:focus {
+    outline: none;
+    border: 2px solid $primaryBlueColor;
+  }
 }
 
 textarea {
@@ -57,6 +73,11 @@ textarea {
   border-radius: 5px;
   font-family: Cabin, sans-serif;
   font-size: 16px;
+
+  &:focus {
+    outline: none;
+    border: 2px solid $primaryBlueColor;
+  }
 }
 
 .save {
@@ -69,11 +90,19 @@ textarea {
   width: 72px;
   height: 32px;
   border: none;
-  color: #fff;
   text-align: center;
   border-radius: 5px;
-  background-color: #389393;
+  background-color: $primaryBlueColor;
   cursor: pointer;
+
+  &:hover {
+    background-color: #55caca;
+  }
+
+  &:active {
+    background-color: $primaryBlueColor;
+    box-shadow: inset 2px 1px gray;
+  }
 }
 
 .entries-row {
@@ -99,7 +128,7 @@ textarea {
   position: absolute;
   right: 0;
   top: 0;
-  color: #389393;
+  color: $primaryBlueColor;
 }
 
 i:hover {
@@ -116,23 +145,6 @@ i:hover {
   border-radius: 10px;
 }
 
-textarea:focus,
-input:focus {
-  outline: none;
-  border: 2px solid #389393;
-}
-
-.save-button:hover,
-.new-button:hover {
-  background-color: #55caca;
-}
-
-.save-button:active,
-.new-button:active {
-  background-color: #389393;
-  box-shadow: inset 2px 1px gray;
-}
-
 .delete-btn {
   color: red;
   font-family: "Roboto Condensed", sans-serif;
@@ -140,8 +152,13 @@ input:focus {
   cursor: pointer;
   position: relative;
   top: 45px;
-  background-color: #f8f6f6;
+  background-color: $offWhite;
   border: none;
+
+  &:hover {
+    color: $deletebtnHvr;
+    background-color: $offWhite;
+  }
 }
 
 .visibility {
@@ -154,7 +171,7 @@ input:focus {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgb(0 0 0 / 50%);
+  background-color: RGB(0 0 0 / 50%);
   opacity: 0;
   visibility: hidden;
   transform: scale(1.1);
@@ -170,32 +187,39 @@ input:focus {
   padding: 60px 30px;
   position: absolute;
   border-radius: 10px;
-}
 
-.confirm-btn {
-  font-size: 18px;
-  color: white;
-  background-color: red;
-  padding: 10px 15px;
-  border-radius: 7px;
-  border: red;
-  box-shadow: 2px 0 5px grey;
-  position: relative;
-  top: 20px;
-  left: 53px;
-}
+  .confirm-btn {
+    font-size: 18px;
+    background-color: red;
+    padding: 10px 15px;
+    border-radius: 7px;
+    border: red;
+    box-shadow: 2px 0 5px grey;
+    position: relative;
+    top: 20px;
+    left: 53px;
 
-.cancel-btn {
-  font-size: 18px;
-  color: black;
-  background-color: grey;
-  padding: 10px 18px;
-  border-radius: 7px;
-  border: grey;
-  box-shadow: 2px 0 5px grey;
-  position: relative;
-  top: 20px;
-  right: 53px;
+    &:hover {
+      background-color: $deletebtnHvr;
+    }
+  }
+
+  .cancel-btn {
+    font-size: 18px;
+    color: black;
+    background-color: grey;
+    padding: 10px 18px;
+    border-radius: 7px;
+    border: grey;
+    box-shadow: 2px 0 5px grey;
+    position: relative;
+    top: 20px;
+    right: 53px;
+
+    &:hover {
+      background-color: #7c7878;
+    }
+  }
 }
 
 .show-modal {
@@ -206,17 +230,4 @@ input:focus {
 
 .modal-text-content {
   font-size: 18px;
-}
-
-.delete-btn:hover {
-  color: #f14a4a;
-  background-color: #f8f6f6;
-}
-
-.confirm-btn:hover {
-  background-color: #f14a4a;
-}
-
-.cancel-btn:hover {
-  background-color: #7c7878;
 }
